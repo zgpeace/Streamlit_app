@@ -19,6 +19,7 @@ def get_value(val,my_dict):
             return value
        
 app_mode = st.sidebar.selectbox('Select Page',['Home','Prediction'])
+count = 0
 if app_mode=='Home':
     st.title('LOAN PREDICTION :')
     st.image('hipster_loan-1.jpg') 
@@ -31,7 +32,7 @@ elif app_mode =='Prediction':
     csv=pd.read_csv("informations.csv")
     st.write(csv)
 
-    st.image('slider-short-3.jpg')
+    st.image('hipster_loan-1.jpg')
 
     st.subheader('Sir/Mme , YOU need to fill all neccesary informations in order to get a reply to your loan request !')
     st.sidebar.header("Informations about the client :")
@@ -88,6 +89,7 @@ elif app_mode =='Prediction':
 
     single_sample = np.array(feature_list).reshape(1,-1)
 
+    count +=1
     if st.button("Predict"):
         file_ = open("6m-rain.gif", "rb")
         contents = file_.read()
@@ -98,10 +100,12 @@ elif app_mode =='Prediction':
         contents = file.read()
         data_url_no = base64.b64encode(contents).decode("utf-8")
         file.close()
-   
-   
-        loaded_model = pickle.load(open('Random_Forest.sav', 'rb'))
-        prediction = loaded_model.predict(single_sample)
+        
+        # loaded_model = pickle.load(open('Random_Forest.sav', 'rb'))
+        # prediction = loaded_model.predict(single_sample)
+        prediction = [0]
+        print(count)
+        prediction[0] = count % 2
         if prediction[0] == 0 :
             st.error(
     'According to our Calculations, you will not get the loan from Bank'
